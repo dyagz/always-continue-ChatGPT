@@ -18,19 +18,21 @@ function clickContinueButton() {
     }
 }
 
-// Function to hide elements
-function hideElements() {
-    const elementsToHide = document.querySelectorAll('div[data-projection-id]');
-    elementsToHide.forEach((element) => {
-        element.style.display = 'none';  // Hide the element
-    });
-    console.log("Hidden specific elements.");
+// Function to hide a specific element by its class
+function hideElementByClass() {
+    const elementToHide = document.querySelector('.absolute.bottom-full.left-0.mb-4.flex.w-full.grow.gap-2.px-1.pb-1.sm\\:px-2.sm\\:pb-0.md\\:static.md\\:mb-0.md\\:max-w-none');
+    if (elementToHide) {
+        elementToHide.style.display = 'none';  // Hide the element
+        console.log("Hidden the specific element with the given class.");
+    } else {
+        console.log("Element with the given class not found.");
+    }
 }
 
-// Function to continuously check for the "continue" button and hide elements
+// Function to continuously check for the "continue" button and hide the specific element
 function checkForActions() {
     clickContinueButton();
-    hideElements();
+    hideElementByClass();
     setTimeout(checkForActions, 1000); // Check every 1 second
 }
 
