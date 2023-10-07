@@ -1,12 +1,8 @@
-// content.js
-
-// Update this selector based on the HTML you provided
-const continueButtonSelector = "div.flex.items-center.md\\:items-end > div > button.btn.btn-neutral";
-
 console.log("Extension content script loaded.");
 
 // Function to find and click the "continue" button
 function clickContinueButton() {
+    const continueButtonSelector = "div.flex.items-center.md\\:items-end > div > button.btn.btn-neutral";
     console.log("Searching for the continue button...");
     const continueButton = document.querySelector(continueButtonSelector);
     if (continueButton) {
@@ -22,14 +18,24 @@ function clickContinueButton() {
     }
 }
 
-// Function to continuously check for the "continue" button
-function checkForContinueButton() {
-    clickContinueButton();
-    setTimeout(checkForContinueButton, 1000); // Check every 1 second
+// Function to hide elements
+function hideElements() {
+    const elementsToHide = document.querySelectorAll('div[data-projection-id]');
+    elementsToHide.forEach((element) => {
+        element.style.display = 'none';  // Hide the element
+    });
+    console.log("Hidden specific elements.");
 }
 
-// Start the checking process when the page finishes loading
+// Function to continuously check for the "continue" button and hide elements
+function checkForActions() {
+    clickContinueButton();
+    hideElements();
+    setTimeout(checkForActions, 1000); // Check every 1 second
+}
+
+// Start the process when the page finishes loading
 window.addEventListener("load", function() {
-    console.log("Page has loaded. Starting the button clicker.");
-    checkForContinueButton();
+    console.log("Page has loaded. Starting the actions.");
+    checkForActions();
 });
